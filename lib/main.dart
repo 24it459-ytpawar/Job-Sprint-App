@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:jobsprint/src/features/authentication/presentation/screens/splashscreen.dart';
 
 void main() {

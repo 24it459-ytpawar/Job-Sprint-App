@@ -11,6 +11,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
         ),
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(height * 0.02),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -39,10 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 150),
+            SizedBox(height: height * .2),
 
             Image.asset('lib/src/assets/Logo.png', height: 200),
-            SizedBox(height: 10),
             Text(
               "Job Sprint",
               style: GoogleFonts.outfit(
@@ -51,12 +52,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontSize: 40,
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: height * .04),
             CircularProgressIndicator(
               backgroundColor: const Color.fromARGB(255, 59, 117, 151),
               color: const Color.fromARGB(255, 111, 208, 215),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: height * .03),
             Text(
               "loading ...",
               style: GoogleFonts.outfit(
@@ -65,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontSize: 12,
               ),
             ),
-            SizedBox(height: 110),
+            SizedBox(height: height * .18),
             Text(
               "Copyright v1.0",
               style: GoogleFonts.outfit(
