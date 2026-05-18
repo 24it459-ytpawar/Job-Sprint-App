@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,11 +11,70 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Container(
-        color: Colors.white,
-        child: const Center(
-          child: CircularProgressIndicator(),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color.fromARGB(255, 9, 60, 93),
+              const Color.fromARGB(255, 111, 208, 215),
+            ],
+          ),
+        ),
+        padding: EdgeInsets.all(height * 0.02),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "v1.0",
+                  style: GoogleFonts.outfit(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: height * .2),
+
+            Image.asset('lib/src/assets/Logo.png', height: 200),
+            Text(
+              "Job Sprint",
+              style: GoogleFonts.outfit(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+              ),
+            ),
+            SizedBox(height: height * .04),
+            CircularProgressIndicator(
+              backgroundColor: const Color.fromARGB(255, 59, 117, 151),
+              color: const Color.fromARGB(255, 111, 208, 215),
+            ),
+            SizedBox(height: height * .03),
+            Text(
+              "loading ...",
+              style: GoogleFonts.outfit(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+            SizedBox(height: height * .18),
+            Text(
+              "Copyright v1.0",
+              style: GoogleFonts.outfit(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
