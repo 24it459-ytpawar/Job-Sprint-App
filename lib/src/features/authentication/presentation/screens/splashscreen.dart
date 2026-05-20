@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jobsprint/src/features/authentication/widgets/fragment_holder.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,8 +13,15 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3), (){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>FragmentHolder()));
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.sizeOf(context).width;
+
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Container(
