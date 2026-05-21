@@ -15,13 +15,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), (){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>FragmentHolder()));
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => FragmentHolder()),
+      );
     });
   }
+
   @override
   Widget build(BuildContext context) {
-
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       body: Container(
@@ -53,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBox(height: height * .2),
 
-            Image.asset('lib/src/assets/Logo.png', height: 200),
+            Image.asset('lib/src/assets/logo.png', height: 200),
             Text(
               "Job Sprint",
               style: GoogleFonts.outfit(

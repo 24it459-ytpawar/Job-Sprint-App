@@ -12,24 +12,20 @@ const Color kWhite = Colors.white;
 
 class HomeScreen extends StatefulWidget {
   final List<HomeItem> items;
-  const HomeScreen({super.key, required this.items});
+  final List<String> cities;
+  const HomeScreen({super.key, required this.items, required this.cities});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState(items: items);
+  State<HomeScreen> createState() =>
+      _HomeScreenState(items: items, cities: cities);
 }
 
 //! change this to stl
 class _HomeScreenState extends State<HomeScreen> {
   final List<HomeItem> items;
-  _HomeScreenState({required this.items});
+  final List<String> cities;
+  _HomeScreenState({required this.items, required this.cities});
   // Dropdown options
-  final List<String> cities = [
-    'Ahmedabad',
-    'Bangalore',
-    'Chennai',
-    'Vadodara',
-    'Mumbai',
-  ];
 
   String? selectedCity;
 
@@ -56,8 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
             onPressed: () async {
-              final result = await Navigator.pushNamed(context, '/Add');
+              final result = await Navigator.pushNamed(
+                context,
+                '/Add',
+                arguments: cities,
+              );
               if (result != null) setState(() {});
+              savedList();
             },
           ),
         ],
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
-                                ...cities
+                                ...widget.cities
                                     .map(
                                       (c) => DropdownMenuItem<String?>(
                                         value: c,
@@ -198,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         arguments: items.indexOf(item),
                       );
                       if (updateditem != null) setState(() {});
+                      savedList();
                     },
                   ),
                   IconButton(
@@ -205,6 +207,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       setState(() {
                         items.remove(item);
+                        widget.cities.remove(item.location);
+                        savedList();
                       });
                     },
                   ),
@@ -231,7 +235,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          _buildDetailBox('💼 Position', item.positionType),
+          Row(
+            children: [
+              Expanded(
+                child: _buildDetailBox('💼 Position', item.positionType),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: _buildDetailBox('🏆 Qualification', item.qualification),
+              ),
+            ],
+          ),
         ],
       ),
     );

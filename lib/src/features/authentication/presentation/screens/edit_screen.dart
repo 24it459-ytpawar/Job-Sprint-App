@@ -9,8 +9,13 @@ const Color kHighlight = Color(0xFF5DF8D8);
 class EditScreen extends StatefulWidget {
   final int index;
   final List<HomeItem> items;
-
-  const EditScreen({super.key, required this.index, required this.items});
+  final List<String> cities;
+  const EditScreen({
+    super.key,
+    required this.index,
+    required this.items,
+    required this.cities,
+  });
 
   @override
   State<EditScreen> createState() => _EditScreenState();
@@ -24,6 +29,7 @@ class _EditScreenState extends State<EditScreen> {
   late final TextEditingController packageController;
   late final TextEditingController companySizeController;
   late final TextEditingController positionTypeController;
+  late final TextEditingController qualificationTypeController;
 
   @override
   void initState() {
@@ -36,6 +42,9 @@ class _EditScreenState extends State<EditScreen> {
     packageController = TextEditingController(text: item.package);
     companySizeController = TextEditingController(text: item.companySize);
     positionTypeController = TextEditingController(text: item.positionType);
+    qualificationTypeController = TextEditingController(
+      text: item.qualification,
+    );
   }
 
   @override
@@ -47,6 +56,7 @@ class _EditScreenState extends State<EditScreen> {
     packageController.dispose();
     companySizeController.dispose();
     positionTypeController.dispose();
+    qualificationTypeController.dispose();
     super.dispose();
   }
 
@@ -113,6 +123,7 @@ class _EditScreenState extends State<EditScreen> {
                         textitems("Package", packageController),
                         textitems("Company Size", companySizeController),
                         textitems("Position Type", positionTypeController),
+                        textitems("Qualification", qualificationTypeController),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
@@ -131,9 +142,26 @@ class _EditScreenState extends State<EditScreen> {
                                   package: packageController.text,
                                   companySize: companySizeController.text,
                                   positionType: positionTypeController.text,
+                                  qualification:
+                                      qualificationTypeController.text,
                                 );
+                                bool flag = true;
+                                for (String city in widget.cities) {
+                                  if (city == locationController.text) {
+                                    flag = false;
+                                    break;
+                                  } else {
+                                    flag = true;
+                                  }
+                                }
+                                flag
+                                    ? widget.cities.add(locationController.text)
+                                    : null;
                                 widget.items[widget.index] = updateditem;
-                                Navigator.pop(context, updateditem);
+                                Navigator.pop(context, [
+                                  updateditem,
+                                  locationController.text,
+                                ]);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: kPrimary,

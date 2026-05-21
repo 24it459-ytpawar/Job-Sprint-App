@@ -8,20 +8,18 @@ const Color kHighlight = Color(0xFF5DF8D8);
 
 class AddScreen extends StatelessWidget {
   final List<HomeItem> items;
+  final List<String> cities;
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController locationController = TextEditingController();
-
   final TextEditingController areaController = TextEditingController();
-
   final TextEditingController workTypeController = TextEditingController();
-
   final TextEditingController packageController = TextEditingController();
-
   final TextEditingController companySizeController = TextEditingController();
-
   final TextEditingController positionTypeController = TextEditingController();
-  AddScreen({super.key, required this.items});
+  final TextEditingController qualificationTypeController =
+      TextEditingController();
+
+  AddScreen({super.key, required this.items, required this.cities});
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +84,7 @@ class AddScreen extends StatelessWidget {
                         textitems("Package", packageController),
                         textitems("Company Size", companySizeController),
                         textitems("Position Type", positionTypeController),
+                        textitems("Qualification", qualificationTypeController),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
@@ -104,11 +103,13 @@ class AddScreen extends StatelessWidget {
                                   package: packageController.text,
                                   companySize: companySizeController.text,
                                   positionType: positionTypeController.text,
+                                  qualification:
+                                      qualificationTypeController.text,
                                 );
-
+                                cities.add(locationController.text);
                                 items.add(newItem);
 
-                                Navigator.pop(context, newItem);
+                                Navigator.pop(context, [newItem,locationController.text]);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: kPrimary,
