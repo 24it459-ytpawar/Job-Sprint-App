@@ -30,9 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
     'Vadodara',
     'Mumbai',
   ];
-  final List<String> workTypes = ['Remote', 'Onsite', 'Work from Home'];
-  final List<String> companySizes = ['Startup', 'Mid-size', 'Enterprise'];
-  final List<String> positionTypes = ['Intern', 'Full Time', 'Part Time'];
 
   String? selectedCity;
 
