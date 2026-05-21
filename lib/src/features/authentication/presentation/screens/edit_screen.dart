@@ -24,7 +24,7 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   late final TextEditingController nameController;
   late final TextEditingController locationController;
-  late final TextEditingController areaController;
+  late final TextEditingController departmentController;
   late final TextEditingController workTypeController;
   late final TextEditingController packageController;
   late final TextEditingController companySizeController;
@@ -37,7 +37,7 @@ class _EditScreenState extends State<EditScreen> {
     final item = widget.items[widget.index];
     nameController = TextEditingController(text: item.name);
     locationController = TextEditingController(text: item.location);
-    areaController = TextEditingController(text: item.area);
+    departmentController = TextEditingController(text: item.department);
     workTypeController = TextEditingController(text: item.workType);
     packageController = TextEditingController(text: item.package);
     companySizeController = TextEditingController(text: item.companySize);
@@ -51,7 +51,7 @@ class _EditScreenState extends State<EditScreen> {
   void dispose() {
     nameController.dispose();
     locationController.dispose();
-    areaController.dispose();
+    departmentController.dispose();
     workTypeController.dispose();
     packageController.dispose();
     companySizeController.dispose();
@@ -118,7 +118,7 @@ class _EditScreenState extends State<EditScreen> {
                       children: [
                         textitems("Name", nameController),
                         textitems("Location", locationController),
-                        textitems("Area", areaController),
+                        textitems("Department", departmentController),
                         textitems("Work Type", workTypeController),
                         textitems("Package", packageController),
                         textitems("Company Size", companySizeController),
@@ -137,7 +137,7 @@ class _EditScreenState extends State<EditScreen> {
                                 final updateditem = HomeItem(
                                   name: nameController.text,
                                   location: locationController.text,
-                                  area: areaController.text,
+                                  department: departmentController.text,
                                   workType: workTypeController.text,
                                   package: packageController.text,
                                   companySize: companySizeController.text,

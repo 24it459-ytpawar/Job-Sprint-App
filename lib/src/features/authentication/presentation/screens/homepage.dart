@@ -222,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
             runSpacing: 8,
             children: [
               _buildTag('📍 ${item.location}', kAccent),
-              _buildTag('🏢 ${item.area}', kAccent),
+              _buildTag('🏢 ${item.department}', kAccent),
               _buildTag('💰 ${item.package}', kHighlight),
             ],
           ),

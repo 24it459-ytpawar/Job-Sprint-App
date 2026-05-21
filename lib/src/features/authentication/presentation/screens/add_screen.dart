@@ -11,7 +11,7 @@ class AddScreen extends StatelessWidget {
   final List<String> cities;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  final TextEditingController areaController = TextEditingController();
+  final TextEditingController departmentController = TextEditingController();
   final TextEditingController workTypeController = TextEditingController();
   final TextEditingController packageController = TextEditingController();
   final TextEditingController companySizeController = TextEditingController();
@@ -79,7 +79,7 @@ class AddScreen extends StatelessWidget {
                       children: [
                         textitems("Name", nameController),
                         textitems("Location", locationController),
-                        textitems("Area", areaController),
+                        textitems("Department", departmentController),
                         textitems("Work Type", workTypeController),
                         textitems("Package", packageController),
                         textitems("Company Size", companySizeController),
@@ -98,7 +98,7 @@ class AddScreen extends StatelessWidget {
                                 final newItem = HomeItem(
                                   name: nameController.text,
                                   location: locationController.text,
-                                  area: areaController.text,
+                                  department: departmentController.text,
                                   workType: workTypeController.text,
                                   package: packageController.text,
                                   companySize: companySizeController.text,

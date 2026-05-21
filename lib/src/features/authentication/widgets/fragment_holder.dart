@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HomeItem {
   String name;
   String location;
-  String area;
+  String department;
   String workType;
   String package;
   String companySize;
@@ -19,7 +19,7 @@ class HomeItem {
   HomeItem({
     required this.name,
     required this.location,
-    required this.area,
+    required this.department,
     required this.workType,
     required this.package,
     required this.companySize,
@@ -30,7 +30,7 @@ class HomeItem {
     return {
       "name": name,
       "location": location,
-      "area": area,
+      "department": department,
       "workType": workType,
       "package": package,
       "companySize": companySize,
@@ -38,13 +38,51 @@ class HomeItem {
       "qualification": qualification,
     };
   }
+
+  static HomeItem fromjson(Map<String, dynamic> item) {
+    return HomeItem(
+      name: item['name'] as String,
+      location: item['location'] as String,
+      department: item['department'] as String,
+      workType: item['workType'] as String,
+      package: item['package'] as String,
+      companySize: item['companySize'] as String,
+      positionType: item['positionType'] as String,
+      qualification: item['qualification'] as String,
+    );
+  }
+}
+
+Future<void> loadList() async {
+  try {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString('My_Data');
+    String? jsonCities = prefs.getString('My_Cities');
+    if (jsonString == null) {
+      data = [];
+      return;
+    }
+    if (jsonCities == null) {
+      data = [];
+      return;
+    }
+    List<dynamic> decodeData = jsonDecode(jsonString);
+    List<dynamic> decodeCities = jsonDecode(jsonCities);
+    data = decodeData.map((item) => HomeItem.fromjson(item)).toList();
+    cities = decodeCities.map((item) => item as String).toList();
+    print("List added sucessfully");
+  } catch (e) {
+    print("List not added sucessfully");
+  }
 }
 
 Future<void> savedList() async {
   try {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String jsonString = jsonEncode(data.map((item) => item.tojson()).toList());
+    String jsonCities = jsonEncode(cities.map((item) => item).toList());
     await prefs.setString("My_Data", jsonString);
+    await prefs.setString("My_Cities", jsonCities);
     print("List is stored Sucessfully");
   } catch (e) {
     print("Error occured");
@@ -58,115 +96,8 @@ class FragmentHolder extends StatefulWidget {
   State<FragmentHolder> createState() => _FragmentHolderState();
 }
 
-final List<String> cities = [
-  'Ahmedabad',
-  'Bangalore',
-  'Chennai',
-  'Vadodara',
-  'Mumbai',
-];
-List<HomeItem> data = [
-  HomeItem(
-    name: 'Microsoft',
-    location: 'Ahmedabad',
-    area: 'IT',
-    workType: 'Remote',
-    package: '6 LPA',
-    companySize: 'Startup',
-    positionType: 'Full Time',
-    qualification: 'B.Tech',
-  ),
-  HomeItem(
-    name: 'Amazon',
-    location: 'Mumbai',
-    area: 'Software',
-    workType: 'Onsite',
-    package: '8 LPA',
-    companySize: 'Enterprise',
-    positionType: 'Full Time',
-    qualification: 'B.Tech',
-  ),
-  HomeItem(
-    name: 'Google',
-    location: 'Bangalore',
-    area: 'Software',
-    workType: 'Work from Home',
-    package: '5 LPA',
-    companySize: 'Mid-size',
-    positionType: 'Intern',
-    qualification: 'B.Tech',
-  ),
-  HomeItem(
-    name: 'Infosys',
-    location: 'Pune',
-    area: 'Development',
-    workType: 'Hybrid',
-    package: '4.5 LPA',
-    companySize: 'Enterprise',
-    positionType: 'Full Time',
-    qualification: 'M.Tech',
-  ),
-  HomeItem(
-    name: 'TCS',
-    location: 'Hyderabad',
-    area: 'Cloud',
-    workType: 'Onsite',
-    package: '3.8 LPA',
-    companySize: 'Enterprise',
-    positionType: 'Full Time',
-    qualification: 'M.Tech',
-  ),
-  HomeItem(
-    name: 'Wipro',
-    location: 'Chennai',
-    area: 'Cyber Security',
-    workType: 'Remote',
-    package: '5.2 LPA',
-    companySize: 'Large',
-    positionType: 'Intern',
-    qualification: 'M.Tech',
-  ),
-  HomeItem(
-    name: 'Adobe',
-    location: 'Noida',
-    area: 'UI/UX',
-    workType: 'Hybrid',
-    package: '10 LPA',
-    companySize: 'Enterprise',
-    positionType: 'Full Time',
-    qualification: 'M.Tech',
-  ),
-  HomeItem(
-    name: 'Flipkart',
-    location: 'Bangalore',
-    area: 'Backend',
-    workType: 'Onsite',
-    package: '7 LPA',
-    companySize: 'Mid-size',
-    positionType: 'Full Time',
-    qualification: 'B.Tech',
-  ),
-  HomeItem(
-    name: 'Zomato',
-    location: 'Delhi',
-    area: 'Data Science',
-    workType: 'Remote',
-    package: '9 LPA',
-    companySize: 'Startup',
-    positionType: 'Part Time',
-    qualification: 'B.Tech',
-  ),
-  HomeItem(
-    name: 'Paytm',
-    location: 'Gurgaon',
-    area: 'FinTech',
-    workType: 'Hybrid',
-    package: '6.5 LPA',
-    companySize: 'Startup',
-    positionType: 'Full Time',
-    qualification: 'B.Tech',
-  ),
-];
+List<String> cities = [];
+List<HomeItem> data = [];
 
 class _FragmentHolderState extends State<FragmentHolder> {
   @override

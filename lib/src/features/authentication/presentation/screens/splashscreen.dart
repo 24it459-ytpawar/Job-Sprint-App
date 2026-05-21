@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => FragmentHolder()),
       );
     });
+    loadList();
   }
 
   @override
